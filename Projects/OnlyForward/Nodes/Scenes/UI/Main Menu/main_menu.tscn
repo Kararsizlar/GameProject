@@ -1,0 +1,162 @@
+[gd_scene load_steps=3 format=3 uid="uid://dkndwwbuqb0y2"]
+
+[ext_resource type="Script" path="res://Nodes/Scenes/UI/Main Menu/Behaviour/main_menu_manager.gd" id="1_gy780"]
+[ext_resource type="Script" path="res://Nodes/Scenes/UI/Main Menu/Behaviour/menu_entry.gd" id="2_ldjo1"]
+
+[node name="main_menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="background_color" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 640.0
+offset_bottom = 360.0
+color = Color(0.278431, 0.278431, 0.278431, 1)
+
+[node name="main_margin" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 448.0
+offset_bottom = 360.0
+
+[node name="ColorRect" type="ColorRect" parent="main_margin"]
+layout_mode = 2
+color = Color(0.564706, 0.568627, 0.611765, 1)
+
+[node name="name" type="Label" parent="main_margin"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "Only Forward"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Menus" type="Control" parent="main_margin"]
+layout_mode = 2
+script = ExtResource("1_gy780")
+
+[node name="entry" type="VBoxContainer" parent="main_margin/Menus"]
+layout_mode = 0
+offset_left = -448.0
+offset_top = 120.0
+offset_bottom = 360.0
+size_flags_vertical = 3
+theme_override_constants/separation = 25
+alignment = 1
+script = ExtResource("2_ldjo1")
+
+[node name="Start" type="Button" parent="main_margin/Menus/entry"]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Play"
+
+[node name="Button1" type="Button" parent="main_margin/Menus/entry"]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Play"
+
+[node name="Button2" type="Button" parent="main_margin/Menus/entry"]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Play"
+
+[node name="entry2" type="VBoxContainer" parent="main_margin/Menus"]
+layout_mode = 0
+offset_left = -448.0
+offset_top = 120.0
+offset_bottom = 360.0
+size_flags_vertical = 3
+theme_override_constants/separation = 25
+alignment = 1
+script = ExtResource("2_ldjo1")
+
+[node name="Start" type="Button" parent="main_margin/Menus/entry2"]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Play"
+
+[node name="Button1" type="Button" parent="main_margin/Menus/entry2"]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Play"
+
+[node name="Button2" type="Button" parent="main_margin/Menus/entry2"]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Play"
+
+[node name="entry3" type="VBoxContainer" parent="main_margin/Menus"]
+layout_mode = 0
+offset_left = -448.0
+offset_top = 120.0
+offset_bottom = 360.0
+size_flags_vertical = 3
+theme_override_constants/separation = 25
+alignment = 1
+script = ExtResource("2_ldjo1")
+
+[node name="Start" type="Button" parent="main_margin/Menus/entry3"]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Play"
+
+[node name="Button1" type="Button" parent="main_margin/Menus/entry3"]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Play"
+
+[node name="Button2" type="Button" parent="main_margin/Menus/entry3"]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Play"
+
+[node name="entry4" type="VBoxContainer" parent="main_margin/Menus"]
+layout_mode = 0
+offset_left = -448.0
+offset_top = 120.0
+offset_bottom = 360.0
+size_flags_vertical = 3
+theme_override_constants/separation = 25
+alignment = 1
+script = ExtResource("2_ldjo1")
+
+[node name="Start" type="Button" parent="main_margin/Menus/entry4"]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Play"
+
+[node name="Button1" type="Button" parent="main_margin/Menus/entry4"]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Play"
+
+[node name="Button2" type="Button" parent="main_margin/Menus/entry4"]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Play"
+
+[connection signal="pressed" from="main_margin/Menus/entry/Start" to="main_margin/Menus/entry" method="on_button_start"]
+[connection signal="pressed" from="main_margin/Menus/entry2/Start" to="main_margin/Menus/entry2" method="on_button_start"]
+[connection signal="pressed" from="main_margin/Menus/entry3/Start" to="main_margin/Menus/entry3" method="on_button_start"]
+[connection signal="pressed" from="main_margin/Menus/entry4/Start" to="main_margin/Menus/entry4" method="on_button_start"]
