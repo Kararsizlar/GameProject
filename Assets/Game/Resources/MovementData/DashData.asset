@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a213beccafa005e5cb3dfdecd98ca6d7, type: 3}
   m_Name: DashData
   m_EditorClassIdentifier: 
-  timeBetweenDashes: 0.8
+  timeBetweenDashes: 0.6
   dashActionTime: 0.2
   dashSpeed: 20
