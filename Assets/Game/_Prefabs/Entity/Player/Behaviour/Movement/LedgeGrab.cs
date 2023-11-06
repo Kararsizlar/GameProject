@@ -2,62 +2,58 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LedgeGrab : MonoBehaviour
+namespace PlayerSpace
 {
-    private Transform player;
-    private Rigidbody2D rigidBody;
-    private Coroutine ledgeCoroutine;
-    private MovementData movementData;
-    private LedgeGrabData ledgeGrabData;
-    private Vector2 realScale;
-    private Vector2 bodyPos;
-    private Vector2 headPos;
-    private Vector2 spacePos;
+    public class LedgeGrab : MonoBehaviour
+    {
 
-    private IEnumerator CheckLedge(){
+        [HideInInspector] public PlayerData playerData;
+        public LedgeGrabData ledgeGrabData;
+        private Vector2 realScale;
+        private Vector2 bodyPos;
+        private Vector2 headPos;
+        private Vector2 spacePos;
 
-        while(true){
-            yield return Time.fixedDeltaTime;
-            float directionReal = movementData.direction * (player.transform.lossyScale.x + 0.1f) / 2;
-            bodyPos  = rigidBody.position + new Vector2(directionReal,0);
-            headPos  = rigidBody.position + new Vector2(directionReal,realScale.y / 2);
-            spacePos = headPos + new Vector2(0,realScale.y);
+        private IEnumerator CheckLedge(){
 
-            bool bodyCheck = movementData.CircleCheck(bodyPos);
-            bool headCheck = movementData.CircleCheck(headPos);
-            bool spaceCheck  = movementData.CircleCheck(spacePos);
+            while(true){
+                yield return Time.fixedDeltaTime;
+                float directionReal = playerData.direction * (playerData.playerTransform.lossyScale.x + 0.1f) / 2;
+                bodyPos  = playerData.playerBody2D.position + new Vector2(directionReal,0);
+                headPos  = playerData.playerBody2D.position + new Vector2(directionReal,realScale.y / 2);
+                spacePos = headPos + new Vector2(0,realScale.y);
 
-            if(bodyCheck && !headCheck && !spaceCheck){
-                
-                RaycastHit2D hit = Physics2D.Raycast(spacePos,Vector2.down,Mathf.Infinity,movementData.wall);
-                player.transform.position = new Vector3(player.transform.position.x,hit.point.y);
+                bool bodyCheck = playerData.CircleCheck(bodyPos,0.1f,Vector2.zero,playerData.wall);
+                bool headCheck = playerData.CircleCheck(headPos,0.1f,Vector2.zero,playerData.wall);
+                bool spaceCheck  = playerData.CircleCheck(spacePos,0.1f,Vector2.zero,playerData.wall);
 
-                rigidBody.constraints = RigidbodyConstraints2D.FreezeAll;
-                yield return new WaitForSeconds(ledgeGrabData.hangTime);
-                player.transform.position = headPos + new Vector2(0,realScale.y / 2);
-                rigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
+                if(bodyCheck && !headCheck && !spaceCheck){
+                    
+                    RaycastHit2D hit = Physics2D.Raycast(spacePos,Vector2.down,Mathf.Infinity,playerData.wall);
+                    playerData.playerTransform.position = new Vector3(playerData.playerTransform.position.x,hit.point.y);
+
+                    playerData.playerBody2D.constraints = RigidbodyConstraints2D.FreezeAll;
+                    yield return new WaitForSeconds(ledgeGrabData.hangTime);
+                    playerData.playerTransform.position = headPos + new Vector2(0,realScale.y / 2);
+                    playerData.playerBody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
+                }
             }
         }
-    }
 
+        private void Start(){
+            realScale = playerData.boxCollider2D.bounds.size;
+            StartCoroutine(CheckLedge());
+        }
 
-    private void Start(){
-        player = transform.parent.parent;
-        rigidBody = player.GetComponent<Rigidbody2D>();
-        ledgeGrabData = Resources.Load<LedgeGrabData>("MovementData/LedgeGrabData");
-        realScale = player.transform.lossyScale;
+        private void OnDrawGizmos(){
 
-        
-        if(!TryGetComponent<MovementData>(out movementData))
-            movementData = gameObject.AddComponent<MovementData>();
-
-        ledgeCoroutine = StartCoroutine(CheckLedge());
-    }
-
-    private void OnDrawGizmos(){
-        Gizmos.color = Color.blue;
-        Gizmos.DrawSphere(bodyPos,0.1f);
-        Gizmos.DrawSphere(headPos,0.1f);
-        Gizmos.DrawSphere(spacePos,0.1f);        
+            if(!Application.isPlaying)
+                return;
+                
+            Gizmos.color = Color.blue;
+            Gizmos.DrawSphere(bodyPos,0.1f);
+            Gizmos.DrawSphere(headPos,0.1f);
+            Gizmos.DrawSphere(spacePos,0.1f);        
+        }
     }
 }

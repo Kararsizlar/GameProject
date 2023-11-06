@@ -1,61 +1,50 @@
 using System.Collections;
 using System.Collections.Generic;
+using PlayerSpace;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Dash : MonoBehaviour, IPlayerMovementAction
+namespace PlayerSpace
 {
-    private Transform player;
-    private Rigidbody2D rigidBody;
-    private MovementData movementData;
-    private DashData dashData;
+    public class Dash : MonoBehaviour, IPlayerMovementAction
+    {
+        [HideInInspector] public PlayerData playerData;
+        public DashData dashData;
 
-    private IEnumerator ISpotDodge(){
-        movementData.canDash = false;
-        rigidBody.constraints = RigidbodyConstraints2D.FreezeAll;
-        yield return new WaitForSeconds(dashData.dashActionTime);
-        rigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
-        StartCoroutine(DashTimer());
+        private IEnumerator ISpotDodge(){
+            playerData.canDash = false;
+            playerData.playerBody2D.constraints = RigidbodyConstraints2D.FreezeAll;
+            yield return new WaitForSeconds(dashData.dashActionTime);
+            playerData.playerBody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
+            StartCoroutine(DashTimer());
 
-        yield return null;
-    }
-    private IEnumerator IDash(){
-        movementData.canDash = false;
-        movementData.dashing = true;
-        rigidBody.velocity = new(dashData.dashSpeed * movementData.direction,0);
-        yield return new WaitForSeconds(dashData.dashActionTime);
-        movementData.dashing = false;
+            yield return null;
+        }
+        private IEnumerator IDash(){
+            playerData.canDash = false;
+            playerData.dashing = true;
+            playerData.playerBody2D.velocity = new(dashData.dashSpeed * playerData.direction,0);
+            yield return new WaitForSeconds(dashData.dashActionTime);
+            playerData.dashing = false;
+            playerData.playerBody2D.velocity = new(0,playerData.playerBody2D.velocity.y);
+            StartCoroutine(DashTimer());
+        }
 
-        StartCoroutine(DashTimer());
-    }
+        public void DoAction(InputAction.CallbackContext context) {
+            Vector2 feetPos = (Vector2)playerData.boxCollider2D.bounds.center - new Vector2(0,playerData.boxCollider2D.bounds.size.y / 2); 
+            
+            if(playerData.canDash == false || context.phase != InputActionPhase.Started)
+                return;
+            
+            if(playerData.CircleCheck(feetPos,0.1f,Vector2.zero,playerData.wall))
+                StartCoroutine(IDash());
+            else
+                StartCoroutine(ISpotDodge());
+        }
 
-    public void DoAction(InputAction.CallbackContext context) {
-        Vector2 feetPos = (Vector2)player.position - new Vector2(0,player.lossyScale.y / 2); 
-        
-        if(movementData.canDash == false || context.phase != InputActionPhase.Started)
-            return;
-        
-        if(movementData.CircleCheck(feetPos) && movementData.direction != 0)
-            StartCoroutine(IDash());
-        else
-            StartCoroutine(ISpotDodge());
-    }
-
-    private IEnumerator DashTimer(){
-        yield return new WaitForSeconds(dashData.timeBetweenDashes);
-        movementData.canDash = true;
-    }
-
-    private void Start(){
-        player = transform.parent.parent;
-        rigidBody = player.GetComponent<Rigidbody2D>();
-        dashData = Resources.Load<DashData>("MovementData/DashData");
-        
-        if(!TryGetComponent<MovementData>(out movementData))
-            movementData = gameObject.AddComponent<MovementData>();
-    }
-
-    private void OnDrawGizmos(){
-        Gizmos.color = Color.blue;
+        private IEnumerator DashTimer(){
+            yield return new WaitForSeconds(dashData.timeBetweenDashes);
+            playerData.canDash = true;
+        }
     }
 }

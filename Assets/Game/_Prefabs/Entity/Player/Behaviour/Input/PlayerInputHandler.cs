@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Player
+namespace PlayerSpace
 {
-    public abstract class InputHandler : MonoBehaviour
+    public class InputHandler : MonoBehaviour
     {
-        public GameObject componentContainer;
         public InputActionAsset inputAsset;
+
+
     }
 }
 

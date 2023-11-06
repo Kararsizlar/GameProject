@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f08e9940264706a49bf2d8ee58f9286, type: 3}
   m_Name: WalkData
   m_EditorClassIdentifier: 
-  speed: 8
+  speed: 10
   minSpeedBeforeStop: 0.25
   slowDownMultiplier: 0.85

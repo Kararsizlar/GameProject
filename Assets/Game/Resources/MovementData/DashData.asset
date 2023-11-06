@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: DashData
   m_EditorClassIdentifier: 
   timeBetweenDashes: 0.6
-  dashActionTime: 0.2
-  dashSpeed: 20
+  dashActionTime: 0.3
+  dashSpeed: 24

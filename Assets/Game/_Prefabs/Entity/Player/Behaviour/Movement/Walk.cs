@@ -4,13 +4,11 @@ using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Player{
+namespace PlayerSpace{
     public class Walk : MonoBehaviour , IPlayerMovementAction
     {
-        private Transform player;
-        private Rigidbody2D rigidBody;
-        private MovementData movementData;
-        private WalkData walkData;
+        public WalkData walkData;
+        [HideInInspector] public PlayerData playerData;
         private Coroutine Iact = null;
         private Coroutine Idrag = null;
 
@@ -27,38 +25,52 @@ namespace Player{
             if(Iact != null) 
                 return;
 
-            movementData.direction = (int)newDirection;
+            playerData.direction = (int)newDirection;
+            playerData.onRun = true;
+
+            if(playerData.onAir)
+                playerData.animator.Play("Player_Fall");
+            else
+                playerData.animator.Play("Player_Run");
+
             Iact = StartCoroutine(IWalkContinue());
         }
 
         private void OnWalkContinue(){
-            if(movementData.dashing)
+            if(playerData.dashing)
                 return;
             
-            SetSpeed(walkData.speed * movementData.direction);
+            SetSpeed(walkData.speed * playerData.direction);
         }
 
         private void OnWalkEnd(){
             StopCoroutine(Iact);
             Iact = null;
-
+            playerData.onRun = false;
             Idrag = StartCoroutine(IWalkDrag());
         }
 
         private void OnWalkDrag(){
             
-            SetSpeed(rigidBody.velocity.x * walkData.slowDownMultiplier);
+            SetSpeed(playerData.playerBody2D.velocity.x * walkData.slowDownMultiplier);
             
-            if(GetAbsoluteSpeed() < walkData.minSpeedBeforeStop)
+            if(GetAbsoluteSpeed() < walkData.minSpeedBeforeStop){
+
+                if(playerData.onAir)
+                    playerData.animator.Play("Player_Fall");
+                else
+                    playerData.animator.Play("Player_Idle");
+
                 SetSpeed(0);
+            }
         }
 
         private void SetSpeed(float value){
-            rigidBody.velocity = new Vector2(value,rigidBody.velocity.y);
+            playerData.playerBody2D.velocity = new Vector2(value,playerData.playerBody2D.velocity.y);
         }
 
         private float GetAbsoluteSpeed(){
-            return Mathf.Abs(rigidBody.velocity.x);
+            return Mathf.Abs(playerData.playerBody2D.velocity.x);
         }
 
         private IEnumerator IWalkContinue(){
@@ -82,16 +94,6 @@ namespace Player{
             
             if(callback.canceled)
                 OnWalkEnd();
-        }
-
-        private void Start(){
-            walkData = Resources.Load<WalkData>("MovementData/WalkData");
-            player = transform.parent.parent;
-           
-            if(!TryGetComponent<MovementData>(out movementData))
-                movementData = gameObject.AddComponent<MovementData>();
-
-            rigidBody = player.GetComponent<Rigidbody2D>();
         }
     }
 }
