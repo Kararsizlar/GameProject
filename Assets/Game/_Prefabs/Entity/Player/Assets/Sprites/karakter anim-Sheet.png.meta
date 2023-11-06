@@ -1,0 +1,514 @@
+fileFormatVersion: 2
+guid: f9747179f4768b82b84cd51cdd95ff82
+TextureImporter:
+  InternalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  IsReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  IgnoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  IgnorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    IgnorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    IgnorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    IgnorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    IgnorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: karakter anim-Sheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 288
+        width: 64
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.33333334}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7679610a362190c458f465352d9b5c40
+      InternalID: -245887221
+      vertices: []
+      Indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: karakter anim-Sheet_1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 288
+        width: 64
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.33333334}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28bbc7014e922e41a926d25f44e5f0cd
+      InternalID: 1166306952
+      vertices: []
+      Indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: karakter anim-Sheet_2
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 288
+        width: 64
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.33333334}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cee4a592a2fe2fc2c956152bc60fa041
+      InternalID: 2045407286
+      vertices: []
+      Indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: karakter anim-Sheet_3
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 288
+        width: 64
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.33333334}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f21fcdfe148dce4558e2cad6c0a366e2
+      InternalID: 498778175
+      vertices: []
+      Indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: karakter anim-Sheet_4
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 288
+        width: 64
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.33333334}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 663eb362039172417b3c5f81fbc2c570
+      InternalID: -873604030
+      vertices: []
+      Indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: karakter anim-Sheet_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 192
+        width: 64
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.33333334}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1efd58ef897b742dc9c3b1464bdd4c28
+      InternalID: 1275842877
+      vertices: []
+      Indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: karakter anim-Sheet_6
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 192
+        width: 64
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.33333334}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad06e625876ea7db794de30099083b4a
+      InternalID: -1059485848
+      vertices: []
+      Indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: karakter anim-Sheet_7
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 192
+        width: 64
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.33333334}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56c4af5848339dfe48ed3b913a22c312
+      InternalID: -165878910
+      vertices: []
+      Indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: karakter anim-Sheet_8
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 192
+        width: 64
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.33333334}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58bd2f67cc3819054a63757d71f3eb71
+      InternalID: 1770265918
+      vertices: []
+      Indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: karakter anim-Sheet_9
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 192
+        width: 64
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.33333334}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 690e077f752932b218569a5446ca903a
+      InternalID: 1407066304
+      vertices: []
+      Indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: karakter anim-Sheet_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 96
+        width: 64
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.33333334}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3cc9d03dfdd1b84e2afe60aeac412840
+      InternalID: 102185592
+      vertices: []
+      Indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: karakter anim-Sheet_11
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 96
+        width: 64
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.33333334}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1b76dbbd5cef0701ae6faadaf51f9ec
+      InternalID: -1845931253
+      vertices: []
+      Indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: karakter anim-Sheet_12
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 96
+        width: 64
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.33333334}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a19996cd20ec8ebbbf43ff1a79b5f92
+      InternalID: 1894490331
+      vertices: []
+      Indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: karakter anim-Sheet_13
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 96
+        width: 64
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.33333334}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a410be322900fbaf9a604bf7c0e5e0bf
+      InternalID: 944909801
+      vertices: []
+      Indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: karakter anim-Sheet_14
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 96
+        width: 64
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.33333334}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 671f490866acd228487117d581cd604d
+      InternalID: 1836393492
+      vertices: []
+      Indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: karakter anim-Sheet_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 64
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.33333334}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa89e33f4520caf129bf4bac04810b82
+      InternalID: -914488891
+      vertices: []
+      Indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: karakter anim-Sheet_16
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 64
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.33333334}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9160c4f260f1d805ea21c8d378f76559
+      InternalID: -1463220942
+      vertices: []
+      Indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    InternalID: 0
+    vertices: []
+    Indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      karakter anim-Sheet_0: -245887221
+      karakter anim-Sheet_1: 1166306952
+      karakter anim-Sheet_10: 102185592
+      karakter anim-Sheet_11: -1845931253
+      karakter anim-Sheet_12: 1894490331
+      karakter anim-Sheet_13: 944909801
+      karakter anim-Sheet_14: 1836393492
+      karakter anim-Sheet_15: -914488891
+      karakter anim-Sheet_16: -1463220942
+      karakter anim-Sheet_2: 2045407286
+      karakter anim-Sheet_3: 498778175
+      karakter anim-Sheet_4: -873604030
+      karakter anim-Sheet_5: 1275842877
+      karakter anim-Sheet_6: -1059485848
+      karakter anim-Sheet_7: -165878910
+      karakter anim-Sheet_8: 1770265918
+      karakter anim-Sheet_9: 1407066304
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
