@@ -45,8 +45,8 @@ public class EnemySearchMelee : MonoBehaviour
         if(canSeeTarget)
             Gizmos.color = Color.green;
         else
-            Gizmos.color = Color.red;
-            
+            d = 0;
+
         Gizmos.DrawLine(entity.position,(Vector2)entity.position + (dir * d));
     }
 }
