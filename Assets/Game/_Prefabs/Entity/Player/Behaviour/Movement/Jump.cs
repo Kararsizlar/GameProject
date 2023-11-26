@@ -15,7 +15,7 @@ namespace PlayerSpace{
         private bool cancelFlag;
 
         private void Start(){
-            scaleX = playerData.boxCollider2D.bounds.size.x / 2;
+            scaleX = playerData.boxCollider2D.bounds.size.x / 2 - 0.1f;
             scaleY = playerData.boxCollider2D.bounds.size.y / 2;
         }
 
