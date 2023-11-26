@@ -309,6 +309,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a69f4bd9481e7d182b9ffddb59464b1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  partolRelativePoints: []
+  partolRelativePoints:
+  - {x: -25, y: -10}
+  - {x: -14, y: -10}
   partolIndex: 0
   _Patrolling: 0

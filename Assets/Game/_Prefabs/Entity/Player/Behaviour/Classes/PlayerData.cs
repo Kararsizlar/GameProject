@@ -10,7 +10,8 @@ namespace PlayerSpace
         public float direction;
         public bool onAttack;
         public bool onRun;
-        public bool onAir;  
+        public bool onAir;
+        public bool onJump;
         public Transform playerTransform;
         public Rigidbody2D playerBody2D;
         public BoxCollider2D boxCollider2D;

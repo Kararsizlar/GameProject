@@ -25,7 +25,7 @@ namespace PlayerSpace{
             
             StopCoroutine(jumpCoroutine);
             jumpCoroutine = null;
-            playerData.animator.Play("Player_Fall");
+            playerData.onJump = false;
             playerData.playerBody2D.velocity= new Vector2(playerData.playerBody2D.velocity.x,0);
         }
 
@@ -34,6 +34,7 @@ namespace PlayerSpace{
             Vector2 leftPos  = new(playerData.playerBody2D.position.x - scaleX,playerData.playerBody2D.position.y + scaleY);
             Vector2 rightPos = new(playerData.playerBody2D.position.x + scaleX,playerData.playerBody2D.position.y + scaleY);
             playerData.animator.Play("Player_Jump");
+            playerData.onJump = true;
             while (playerData.playerBody2D.position.y - startY < jumpData.maxDistance && !playerData.CircleCheck(rightPos,0.1f,Vector2.zero,playerData.wall) && !playerData.CircleCheck(leftPos,0.1f,Vector2.zero,playerData.wall)){
                 
                 if(cancelFlag){
