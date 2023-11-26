@@ -237,6 +237,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5800541862041929752}
   - component: {fileID: 806987326550493045}
+  - component: {fileID: 1688050804674244147}
+  - component: {fileID: 8683932414663432224}
   m_Layer: 7
   m_Name: Behaviour
   m_TagString: Untagged
@@ -272,3 +274,43 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthDataAsset: {fileID: 11400000, guid: c286b05133fa12133b5c73bfb91a832e, type: 2}
+--- !u!114 &1688050804674244147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8801936212834056401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b06eb9d1f929472ca690eecf6a32ca1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entity: {fileID: 3622834024180128458}
+  ignoreEnemy:
+    serializedVersion: 2
+    m_Bits: 127
+  targetList:
+    serializedVersion: 2
+    m_Bits: 8
+  visionBoxSize: {x: 18, y: 12}
+  realizationTime: 0
+  realizationRandomizer: 0
+  canSeeTarget: 0
+--- !u!114 &8683932414663432224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8801936212834056401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a69f4bd9481e7d182b9ffddb59464b1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  partolRelativePoints:
+  - {x: -25, y: -10}
+  - {x: -14, y: -10}
+  partolIndex: 0
+  _Patrolling: 0
