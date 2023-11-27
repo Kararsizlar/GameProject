@@ -28,9 +28,7 @@ namespace PlayerSpace
                 bool spaceCheck  = playerData.CircleCheck(spacePos,0.1f,Vector2.zero,playerData.wall);
 
                 if(bodyCheck && !headCheck && !spaceCheck){
-                    
-                    RaycastHit2D hit = Physics2D.Raycast(spacePos,Vector2.down,Mathf.Infinity,playerData.wall);
-                    playerData.playerTransform.position = new Vector3(playerData.playerTransform.position.x,hit.point.y);
+                    playerData.playerTransform.position = new Vector3(playerData.playerTransform.position.x,bodyPos.y);
 
                     playerData.playerBody2D.constraints = RigidbodyConstraints2D.FreezeAll;
                     yield return new WaitForSeconds(ledgeGrabData.hangTime);
