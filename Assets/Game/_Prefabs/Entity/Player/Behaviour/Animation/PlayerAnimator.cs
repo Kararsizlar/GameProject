@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using PlayerSpace;
 using UnityEngine;
 
-public class PlayerAnimator : MonoBehaviour , IWalkEvents , IJumpEvents , IDashEvents , IAttackEvents , ILedgeGrabEvents
+public class PlayerAnimator : MonoBehaviour
 {
     [SerializeField] PlayerData playerData;
     [SerializeField] Animator animator;

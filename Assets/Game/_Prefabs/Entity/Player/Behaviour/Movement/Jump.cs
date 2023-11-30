@@ -5,7 +5,7 @@ using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 namespace PlayerSpace{
-    public class Jump : MonoBehaviour , IPlayerMovementAction
+    public class Jump : MonoBehaviour
     {
         [SerializeField] PlayerData playerData;
         [SerializeField] JumpData jumpData;
@@ -51,6 +51,10 @@ namespace PlayerSpace{
             StopJump();
         }
 
+        private void IEDownJump(){
+            playerData.playerBody2D.transform.position += Vector3.down * jumpData.downJumpDistance;
+        }
+
         public void StopJump(){
             if(jumpCoroutine == null)
                 return;
@@ -67,8 +71,17 @@ namespace PlayerSpace{
             Vector2 rightPos = new(playerData.playerBody2D.position.x + scaleX,playerData.playerBody2D.position.y - scaleY);
             EventHub.jumpStartedEvent?.Invoke();
             
-            if (playerData.CircleCheck(leftPos,0.1f,Vector2.zero,playerData.wall) || playerData.CircleCheck(rightPos,0.1f,Vector2.zero,playerData.wall))
+            bool isPlayerInSoftWall = playerData.CircleCheck(leftPos,0.1f,Vector2.zero,playerData.softWall) || playerData.CircleCheck(rightPos,0.1f,Vector2.zero,playerData.softWall);
+            bool isPlayerInHardWall = playerData.CircleCheck(leftPos,0.1f,Vector2.zero,playerData.wall) || playerData.CircleCheck(rightPos,0.1f,Vector2.zero,playerData.wall);
+
+            if(isPlayerInHardWall)
                 jumpCoroutine = jump.StartCoroutine(IEJump());
+            else if(isPlayerInSoftWall){
+                if(playerData.down)
+                    IEDownJump();
+                else
+                    jumpCoroutine = jump.StartCoroutine(IEJump());
+            }
         }
 
         public JumpHelper(PlayerData p,Jump j,JumpData jd){

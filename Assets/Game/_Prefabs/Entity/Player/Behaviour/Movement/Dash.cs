@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 namespace PlayerSpace
 {
-    public class Dash : MonoBehaviour, IPlayerMovementAction
+    public class Dash : MonoBehaviour
     {
         [SerializeField] PlayerData playerData;
         public DashData dashData;

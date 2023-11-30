@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace PlayerSpace
 {
-    public class Attack : MonoBehaviour , IPlayerMovementAction
+    public class Attack : MonoBehaviour
     {
         [SerializeField] PlayerData playerData;
         [SerializeField] AttackData attackData;

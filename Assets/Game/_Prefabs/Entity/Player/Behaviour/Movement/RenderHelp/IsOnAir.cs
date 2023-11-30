@@ -18,7 +18,7 @@ namespace PlayerSpace
             
             Vector2 leftPos  = new(playerData.playerBody2D.position.x - scaleX,playerData.playerBody2D.position.y - scaleY);
             Vector2 rightPos = new(playerData.playerBody2D.position.x + scaleX,playerData.playerBody2D.position.y - scaleY);
-            bool leftCheck = playerData.CircleCheck(leftPos,0.1f,Vector2.zero,playerData.wall);
+            bool leftCheck = playerData.CircleCheck(leftPos,0.1f,Vector2.zero,playerData.softWall);
             bool rightCheck = playerData.CircleCheck(rightPos,0.1f,Vector2.zero,playerData.wall);
 
             if (leftCheck || rightCheck){

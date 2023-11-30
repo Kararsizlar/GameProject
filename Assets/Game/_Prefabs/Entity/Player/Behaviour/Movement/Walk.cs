@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace PlayerSpace{
-    public class Walk : MonoBehaviour , IPlayerMovementAction
+    public class Walk : MonoBehaviour
     {
         [SerializeField] PlayerData playerData;
         public WalkData walkData;
@@ -26,7 +26,7 @@ namespace PlayerSpace{
         }
     }
 
-    class WalkHelper : IDashEvents{
+    class WalkHelper{
 
         private Coroutine walkCoroutine;
         private PlayerData playerData;

@@ -13,6 +13,7 @@ namespace PlayerSpace
         public bool onAir;
         public bool onJump;
         public bool onWalk;
+        public bool down;
         public Transform playerTransform;
         public Rigidbody2D playerBody2D;
         public BoxCollider2D boxCollider2D;
@@ -29,6 +30,7 @@ namespace PlayerSpace
         public bool canDash;
         public bool dashing;
         public LayerMask wall;
+        public LayerMask softWall;
         public LayerMask hittable;
         public int currentCombo;
         public float timeForComboEnd;

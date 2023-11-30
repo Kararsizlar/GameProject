@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 530690827632838310}
   - component: {fileID: 5363176772630927855}
   - component: {fileID: 7843074881966223367}
+  - component: {fileID: 4738016358116032822}
   m_Layer: 0
   m_Name: Movement
   m_TagString: Untagged
@@ -89,7 +90,6 @@ MonoBehaviour:
     timeBetweenDashes: 0.5
     dashActionTime: 0.25
     dashSpeed: 16
-    sprite: {fileID: -165878910, guid: f9747179f4768b82b84cd51cdd95ff82, type: 3}
 --- !u!114 &5363176772630927855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,7 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00aac8e7b731d4cada86cbcebe1e5201, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerData: {fileID: 0}
+  playerData: {fileID: 7346154821505622961}
   attackData:
     attacks:
     - offset: {x: 1, y: 0}
@@ -135,6 +135,19 @@ MonoBehaviour:
       damage: 3
       attackDuration: 1
       cooldownTime: 2
+--- !u!114 &4738016358116032822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 831565513576827247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46cdb3f7a4f7b1be1bf7c017e7cf1075, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerData: {fileID: 7346154821505622961}
 --- !u!1 &1313052969570749287
 GameObject:
   m_ObjectHideFlags: 0
@@ -291,6 +304,7 @@ MonoBehaviour:
   onAir: 0
   onJump: 0
   onWalk: 0
+  down: 0
   playerTransform: {fileID: 4634438898393724793}
   playerBody2D: {fileID: 8863752706920044930}
   boxCollider2D: {fileID: 5339319849978785932}
@@ -309,6 +323,9 @@ MonoBehaviour:
   wall:
     serializedVersion: 2
     m_Bits: 64
+  softWall:
+    serializedVersion: 2
+    m_Bits: 320
   hittable:
     serializedVersion: 2
     m_Bits: 128
@@ -362,7 +379,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cf850a9060f52ff98bc128d91c14751, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerData: {fileID: 0}
+  playerData: {fileID: 7346154821505622961}
 --- !u!114 &735064349814625792
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -375,8 +392,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 314cbf0089cf042fc8243deab5d57fbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerData: {fileID: 0}
-  minTimeToFallAnim: 0.33
+  playerData: {fileID: 7346154821505622961}
 --- !u!1 &4092254229684821002
 GameObject:
   m_ObjectHideFlags: 0
@@ -641,6 +657,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: e43c41da-2f74-4baf-97be-288296e491c1
     m_ActionName: Region1/Attack[/Keyboard/a]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4738016358116032822}
+        m_TargetAssemblyTypeName: Down, Assembly-CSharp
+        m_MethodName: DoAction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 95d5a016-c613-4a16-9334-3cbecb86079d
+    m_ActionName: Region1/Down[/Keyboard/downArrow]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Region1
@@ -708,7 +740,7 @@ BoxCollider2D:
     serializedVersion: 2
     m_Bits: 4294967295
   m_IsTrigger: 0
-  m_UsedByEffector: 0
+  m_UsedByEffector: 1
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
