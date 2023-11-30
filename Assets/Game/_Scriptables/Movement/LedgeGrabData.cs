@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Data/Movement/LedgeGrab")]
-public class LedgeGrabData : ScriptableObject
+[System.Serializable]
+public class LedgeGrabData
 {
     [Tooltip("Asılma süresi")]
     public float hangTime;

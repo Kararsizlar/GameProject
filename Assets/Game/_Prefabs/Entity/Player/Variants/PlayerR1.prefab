@@ -48,8 +48,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1775acfd147140f7ad27f659a1539e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkData: {fileID: 11400000, guid: ff5b2ce21146279c9b343c6ad4b2a528, type: 2}
-  playerData: {fileID: 0}
+  playerData: {fileID: 7346154821505622961}
+  walkData:
+    speed: 8
+    minSpeedBeforeStop: 0.25
+    slowDownMultiplier: 0.85
+    interrupted: 0
+    walkInput: 0
 --- !u!114 &6714213541058302231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62,8 +67,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53ec4aed946cbf9ce8376a10a79fbf0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerData: {fileID: 0}
-  jumpData: {fileID: 11400000, guid: 8f7360fc067492a1984716b0a7720516, type: 2}
+  playerData: {fileID: 7346154821505622961}
+  jumpData:
+    speed: 18
+    maxDistance: 4.1
+    jumpInputting: 0
 --- !u!114 &530690827632838310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76,8 +84,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e87c2fca7aa21504b09dd0400e014f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerData: {fileID: 0}
-  dashData: {fileID: 11400000, guid: 1e23a769f296129458a85b3115a707b3, type: 2}
+  playerData: {fileID: 7346154821505622961}
+  dashData:
+    timeBetweenDashes: 0.5
+    dashActionTime: 0.25
+    dashSpeed: 16
+    sprite: {fileID: -165878910, guid: f9747179f4768b82b84cd51cdd95ff82, type: 3}
 --- !u!114 &5363176772630927855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90,8 +102,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67c7283425cda6c84a9a0f4e81b6f325, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerData: {fileID: 0}
-  ledgeGrabData: {fileID: 11400000, guid: 664586307d650fd5b87952e006c4f804, type: 2}
+  playerData: {fileID: 7346154821505622961}
+  ledgeGrabData:
+    hangTime: 0.25
 --- !u!114 &7843074881966223367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105,7 +118,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 0}
-  attackData: {fileID: 11400000, guid: e7f5f273e891fb60db958698fc38a289, type: 2}
+  attackData:
+    attacks:
+    - offset: {x: 1, y: 0}
+      size: {x: 2, y: 2}
+      damage: 1
+      attackDuration: 1
+      cooldownTime: 0.2
+    - offset: {x: 1, y: 0}
+      size: {x: 3, y: 2}
+      damage: 2
+      attackDuration: 1
+      cooldownTime: 0.2
+    - offset: {x: 1, y: 0}
+      size: {x: 4, y: 2}
+      damage: 3
+      attackDuration: 1
+      cooldownTime: 2
 --- !u!1 &1313052969570749287
 GameObject:
   m_ObjectHideFlags: 0
@@ -118,10 +147,10 @@ GameObject:
   - component: {fileID: 8863752706920044930}
   - component: {fileID: 7640948850178672086}
   - component: {fileID: 5130514385326674985}
-  - component: {fileID: 4351040291997605540}
+  - component: {fileID: 7346154821505622961}
   m_Layer: 3
   m_Name: PlayerR1
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -244,7 +273,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &4351040291997605540
+--- !u!114 &7346154821505622961
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -253,18 +282,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 1313052969570749287}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86d1f1073f8f194f58f196cac0bd27fb, type: 3}
+  m_Script: {fileID: 11500000, guid: 03d6f6003fca85517921704da3164200, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   direction: 0
   onAttack: 0
   onRun: 0
   onAir: 0
+  onJump: 0
+  onWalk: 0
   playerTransform: {fileID: 4634438898393724793}
   playerBody2D: {fileID: 8863752706920044930}
   boxCollider2D: {fileID: 5339319849978785932}
   playerRenderer: {fileID: 7640948850178672086}
   animator: {fileID: 5130514385326674985}
+  walk: {fileID: 2094132697261031276}
+  jump: {fileID: 6714213541058302231}
+  dash: {fileID: 530690827632838310}
+  dashTrailBehaviour: {fileID: 7417498680183582326}
+  attack: {fileID: 7843074881966223367}
+  ledgeGrab: {fileID: 5363176772630927855}
+  isOnAir: {fileID: 735064349814625792}
+  isFlipped: {fileID: 62191921201995824}
   canDash: 1
   dashing: 0
   wall:
@@ -274,13 +313,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   currentCombo: 0
-  walk: {fileID: 2094132697261031276}
-  jump: {fileID: 6714213541058302231}
-  dash: {fileID: 530690827632838310}
-  attack: {fileID: 7843074881966223367}
-  ledgeGrab: {fileID: 5363176772630927855}
-  isOnAir: {fileID: 735064349814625792}
-  isFlipped: {fileID: 62191921201995824}
+  timeForComboEnd: 3
 --- !u!1 &2173245917183178481
 GameObject:
   m_ObjectHideFlags: 0
@@ -314,6 +347,7 @@ Transform:
   m_Children:
   - {fileID: 126786885036980702}
   - {fileID: 2392376671509025601}
+  - {fileID: 2680091141921228032}
   m_Father: {fileID: 4634438898393724793}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &62191921201995824
@@ -342,6 +376,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 0}
+  minTimeToFallAnim: 0.33
 --- !u!1 &4092254229684821002
 GameObject:
   m_ObjectHideFlags: 0
@@ -370,9 +405,105 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 7882222346012951329}
   m_Father: {fileID: 4634438898393724793}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4896394224267078884
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7882222346012951329}
+  - component: {fileID: 7417498680183582326}
+  m_Layer: 0
+  m_Name: DashTrail
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7882222346012951329
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4896394224267078884}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7231744836004544470}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7417498680183582326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4896394224267078884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d1be55cd863d06c3b16d1fad7b1e7c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dash: {fileID: 530690827632838310}
+  trailPrefab: {fileID: 2586565583542414635, guid: 8630de2a4c616b7f9aac8078ddad0f44, type: 3}
+  playerRenderer: {fileID: 7640948850178672086}
+  sprite: {fileID: -165878910, guid: f9747179f4768b82b84cd51cdd95ff82, type: 3}
+  amountOfTrails: 5
+--- !u!1 &5891958228706535224
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2680091141921228032}
+  - component: {fileID: 7877556706302040419}
+  m_Layer: 0
+  m_Name: Animation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2680091141921228032
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5891958228706535224}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3820340294740055315}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7877556706302040419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5891958228706535224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab46a6d7f3fd676139cd4b720fd66b48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerData: {fileID: 7346154821505622961}
+  animator: {fileID: 5130514385326674985}
 --- !u!1 &6524959548738793276
 GameObject:
   m_ObjectHideFlags: 0
@@ -527,7 +658,7 @@ GameObject:
   - component: {fileID: 5339319849978785932}
   m_Layer: 3
   m_Name: Collider
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

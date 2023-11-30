@@ -15,7 +15,7 @@ public class Stair : MonoBehaviour
         PlayerData playerData = collision2D.gameObject.transform.parent.GetComponent<PlayerData>();
 
         if(playerData.direction == signOfVelocityToNextStair && playerData.onRun)
-            Teleport(collision2D.gameObject.transform); print("??");
+            Teleport(collision2D.gameObject.transform);
     }
 
     private void Teleport(Transform playerCollider){

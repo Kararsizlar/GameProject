@@ -1,8 +1,6 @@
-using System.Collections.Generic;
-using UnityEngine;
 
-[CreateAssetMenu(menuName = "Data/Movement/Attack")]
-public class AttackData : ScriptableObject
+[System.Serializable]
+public class AttackData
 {
-    public List<Slash> attacks;
+    public Slash[] attacks;
 }

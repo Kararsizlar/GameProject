@@ -1,67 +1,62 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace PlayerSpace{
     public class Walk : MonoBehaviour , IPlayerMovementAction
     {
+        [SerializeField] PlayerData playerData;
         public WalkData walkData;
-        [HideInInspector] public PlayerData playerData;
-        private Coroutine Iact = null;
-        private Coroutine Idrag = null;
+        private WalkHelper walkHelper;
 
-        private void OnWalkStart(float newDirection){
+        private void Start(){
+            walkHelper = new(playerData,walkData,this);
+        }
+
+        public void DoAction(InputAction.CallbackContext callback){
+            
+            walkData.walkInput = (int)callback.ReadValue<float>();
+
+            if(callback.started)
+                walkHelper.StartWalk(callback.ReadValue<float>());
+            
+            if(callback.canceled)
+                walkHelper.StopWalk();
+        }
+    }
+
+    class WalkHelper : IDashEvents{
+
+        private Coroutine walkCoroutine;
+        private PlayerData playerData;
+        private WalkData walkData;
+        private Walk walk;
+        private IEnumerator IEWalk(float newDirection){
             
             if(newDirection == 0)
-                OnWalkEnd();
-
-            if(Idrag != null){
-                StopCoroutine(Idrag);
-                Idrag = null;
-            }
-
-            if(Iact != null) 
-                return;
+                yield break;
 
             playerData.direction = (int)newDirection;
-            playerData.onRun = true;
-
-            if(playerData.onAir)
-                playerData.animator.Play("Player_Fall");
-            else
-                playerData.animator.Play("Player_Run");
-
-            Iact = StartCoroutine(IWalkContinue());
-        }
-
-        private void OnWalkContinue(){
-            if(playerData.dashing)
-                return;
             
-            SetSpeed(walkData.speed * playerData.direction);
+            while(true){
+                playerData.onRun = true;
+                SetSpeed(walkData.speed * playerData.direction);
+                yield return Time.fixedDeltaTime;
+            }
         }
 
-        private void OnWalkEnd(){
-            StopCoroutine(Iact);
-            Iact = null;
+        private IEnumerator IEStop(){
             playerData.onRun = false;
-            Idrag = StartCoroutine(IWalkDrag());
-        }
 
-        private void OnWalkDrag(){
-            
-            SetSpeed(playerData.playerBody2D.velocity.x * walkData.slowDownMultiplier);
-            
-            if(GetAbsoluteSpeed() < walkData.minSpeedBeforeStop){
+            while (!playerData.onRun && GetAbsoluteSpeed() != 0){
+                int sign = Math.Sign(GetAbsoluteSpeed());
+                SetSpeed(playerData.playerBody2D.velocity.x * walkData.slowDownMultiplier);
 
-                if(playerData.onAir)
-                    playerData.animator.Play("Player_Fall");
-                else
-                    playerData.animator.Play("Player_Idle");
-
-                SetSpeed(0);
+                if(GetAbsoluteSpeed() < walkData.minSpeedBeforeStop)
+                    SetSpeed(0);
+                
+                yield return Time.fixedDeltaTime;
             }
         }
 
@@ -73,27 +68,46 @@ namespace PlayerSpace{
             return Mathf.Abs(playerData.playerBody2D.velocity.x);
         }
 
-        private IEnumerator IWalkContinue(){
-            while(true){
-                yield return Time.fixedDeltaTime;
-                OnWalkContinue();
+        public void StartWalk(float newDirection){
+            playerData.onWalk = true;
+            EventHub.walkStartedEvent?.Invoke();
+            walkCoroutine = walk.StartCoroutine(IEWalk(newDirection));
+        }
+
+        public void StopWalk(){
+            playerData.onWalk = false;
+            EventHub.walkStoppedEvent?.Invoke();
+            walk.StopCoroutine(walkCoroutine);
+
+            if(!walkData.interrupted)
+                walk.StartCoroutine(IEStop());
+        }
+
+        public void OnDashStart()
+        {
+            if(playerData.onWalk){
+                walkData.interrupted = true;
+                StopWalk();
             }
         }
 
-        private IEnumerator IWalkDrag(){
-            while(Iact == null && GetAbsoluteSpeed() != 0){;
-                yield return Time.fixedDeltaTime;
-                OnWalkDrag();
+        public void OnDashStop()
+        {
+            if(walkData.interrupted && walkData.walkInput != 0){
+                playerData.onWalk = true;
+                StartWalk(playerData.direction);
             }
+
+            walkData.interrupted = false;
         }
 
-        public void DoAction(InputAction.CallbackContext callback){
-            
-            if(callback.started)
-                OnWalkStart(callback.ReadValue<float>());
-            
-            if(callback.canceled)
-                OnWalkEnd();
+        public WalkHelper(PlayerData p,WalkData wd,Walk w){
+            playerData = p;
+            walkData = wd;
+            walk = w;
+
+            EventHub.dashStartedEvent += OnDashStart;
+            EventHub.dashStoppedEvent += OnDashStop;
         }
     }
 }

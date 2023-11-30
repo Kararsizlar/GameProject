@@ -8,43 +8,51 @@ namespace PlayerSpace
 {
     public class Dash : MonoBehaviour, IPlayerMovementAction
     {
-        [HideInInspector] public PlayerData playerData;
+        [SerializeField] PlayerData playerData;
         public DashData dashData;
+        private DashHelper dashHelper;
 
-        private IEnumerator ISpotDodge(){
-            playerData.canDash = false;
-            playerData.playerBody2D.constraints = RigidbodyConstraints2D.FreezeAll;
-            yield return new WaitForSeconds(dashData.dashActionTime);
-            playerData.playerBody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
-            StartCoroutine(DashTimer());
-
-            yield return null;
+        private void Start(){
+            dashHelper = new(playerData,dashData,this);
         }
-        private IEnumerator IDash(){
+
+        public void DoAction(InputAction.CallbackContext context) {
+            if(playerData.canDash == false || context.phase != InputActionPhase.Started)
+                return;
+
+            dashHelper.Dash();
+        }
+    }
+
+    class DashHelper{
+        private PlayerData playerData;
+        private DashData dashData;
+        private Dash dash;
+
+        private IEnumerator IEStartDash(){
+            DashTrailBehaviour.onDash.Invoke();
             playerData.canDash = false;
             playerData.dashing = true;
             playerData.playerBody2D.velocity = new(dashData.dashSpeed * playerData.direction,0);
             yield return new WaitForSeconds(dashData.dashActionTime);
             playerData.dashing = false;
             playerData.playerBody2D.velocity = new(0,playerData.playerBody2D.velocity.y);
-            StartCoroutine(DashTimer());
+            dash.StartCoroutine(IEWaitNextDash());
         }
-
-        public void DoAction(InputAction.CallbackContext context) {
-            Vector2 feetPos = (Vector2)playerData.boxCollider2D.bounds.center - new Vector2(0,playerData.boxCollider2D.bounds.size.y / 2); 
-            
-            if(playerData.canDash == false || context.phase != InputActionPhase.Started)
-                return;
-            
-            if(playerData.CircleCheck(feetPos,0.1f,Vector2.zero,playerData.wall))
-                StartCoroutine(IDash());
-            else
-                StartCoroutine(ISpotDodge());
-        }
-
-        private IEnumerator DashTimer(){
+        private IEnumerator IEWaitNextDash(){
+            EventHub.dashStoppedEvent.Invoke();
             yield return new WaitForSeconds(dashData.timeBetweenDashes);
             playerData.canDash = true;
+        }
+        
+        public void Dash(){
+            dash.StartCoroutine(IEStartDash());
+            EventHub.dashStartedEvent.Invoke();
+        }
+        public DashHelper(PlayerData p,DashData dd,Dash d){
+            playerData = p;
+            dashData = dd;
+            dash = d;
         }
     }
 }
