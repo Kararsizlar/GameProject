@@ -5,43 +5,44 @@ using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 namespace PlayerSpace{
-    public class Jump : MonoBehaviour , IPlayerMovementAction
+    public class Jump : MonoBehaviour
     {
-        private Coroutine jumpCoroutine;
-        [HideInInspector] public PlayerData playerData;
-        public JumpData jumpData;
-        private float scaleX;
-        private float scaleY;
-        private bool cancelFlag;
+        [SerializeField] PlayerData playerData;
+        [SerializeField] JumpData jumpData;
+        private JumpHelper jumpHelper;
 
         private void Start(){
-            scaleX = playerData.boxCollider2D.bounds.size.x / 2 - 0.1f;
-            scaleY = playerData.boxCollider2D.bounds.size.y / 2;
+            jumpHelper = new(playerData,this,jumpData);
         }
-
-        private void StopJump(){
-            if(jumpCoroutine == null)
-                return;
+        public void DoAction(InputAction.CallbackContext callback){
             
-            StopCoroutine(jumpCoroutine);
-            jumpCoroutine = null;
-            playerData.onJump = false;
-            playerData.playerBody2D.velocity= new Vector2(playerData.playerBody2D.velocity.x,0);
-        }
+            if(callback.phase == InputActionPhase.Started){
+                jumpData.jumpInputting = true;
+                jumpHelper.StartJump();
+            }
 
-        private IEnumerator IStartJump(){
+            if(callback.phase == InputActionPhase.Canceled){
+                jumpData.jumpInputting = false;
+                jumpHelper.StopJump();
+            }
+        }
+    }
+
+
+
+    class JumpHelper{
+        private float scaleX,scaleY;
+        private PlayerData playerData;
+        private Coroutine jumpCoroutine;
+        private Jump jump;
+        private JumpData jumpData;
+
+        private IEnumerator IEJump(){
             float startY = playerData.playerBody2D.position.y;
             Vector2 leftPos  = new(playerData.playerBody2D.position.x - scaleX,playerData.playerBody2D.position.y + scaleY);
             Vector2 rightPos = new(playerData.playerBody2D.position.x + scaleX,playerData.playerBody2D.position.y + scaleY);
-            playerData.animator.Play("Player_Jump");
             playerData.onJump = true;
             while (playerData.playerBody2D.position.y - startY < jumpData.maxDistance && !playerData.CircleCheck(rightPos,0.1f,Vector2.zero,playerData.wall) && !playerData.CircleCheck(leftPos,0.1f,Vector2.zero,playerData.wall)){
-                
-                if(cancelFlag){
-                    cancelFlag = false;
-                    break;
-                }
-
                 leftPos  = new(playerData.playerBody2D.position.x - scaleX,playerData.playerBody2D.position.y + scaleY);
                 rightPos = new(playerData.playerBody2D.position.x + scaleX,playerData.playerBody2D.position.y + scaleY);
                 yield return Time.fixedDeltaTime;
@@ -50,30 +51,46 @@ namespace PlayerSpace{
             StopJump();
         }
 
-        public void DoAction(InputAction.CallbackContext callback){
-
-            void StartJump(){
-                Vector2 leftPos  = new(playerData.playerBody2D.position.x - scaleX,playerData.playerBody2D.position.y - scaleY);
-                Vector2 rightPos = new(playerData.playerBody2D.position.x + scaleX,playerData.playerBody2D.position.y - scaleY);
-                
-                if (playerData.CircleCheck(leftPos,0.1f,Vector2.zero,playerData.wall) || playerData.CircleCheck(rightPos,0.1f,Vector2.zero,playerData.wall))
-                    jumpCoroutine = StartCoroutine(IStartJump());
-            }
-
-
-            if(callback.action.name == "Jump")
-                StartJump();
-            else if(callback.action.name == "Jump Cancel" && jumpCoroutine != null)
-                cancelFlag = true;
+        private void IEDownJump(){
+            playerData.playerBody2D.transform.position += Vector3.down * jumpData.downJumpDistance;
         }
 
-        private void OnDrawGizmos(){
-            if(!Application.isPlaying)
+        public void StopJump(){
+            if(jumpCoroutine == null)
                 return;
+            
+            EventHub.jumpStoppedEvent?.Invoke();
+            jump.StopCoroutine(jumpCoroutine);
+            jumpCoroutine = null;
+            playerData.onJump = false;
+            playerData.playerBody2D.velocity = new Vector2(playerData.playerBody2D.velocity.x,0);
+        }
 
-            Gizmos.color = Color.blue;
-            Gizmos.DrawSphere(new(playerData.playerBody2D.position.x - scaleX,playerData.playerBody2D.position.y - scaleY), 0.1f);
-            Gizmos.DrawSphere(new(playerData.playerBody2D.position.x + scaleX,playerData.playerBody2D.position.y - scaleY), 0.1f);
+        public void StartJump(){
+            Vector2 leftPos  = new(playerData.playerBody2D.position.x - scaleX,playerData.playerBody2D.position.y - scaleY);
+            Vector2 rightPos = new(playerData.playerBody2D.position.x + scaleX,playerData.playerBody2D.position.y - scaleY);
+            EventHub.jumpStartedEvent?.Invoke();
+            
+            bool isPlayerInSoftWall = playerData.CircleCheck(leftPos,0.1f,Vector2.zero,playerData.softWall) || playerData.CircleCheck(rightPos,0.1f,Vector2.zero,playerData.softWall);
+            bool isPlayerInHardWall = playerData.CircleCheck(leftPos,0.1f,Vector2.zero,playerData.wall) || playerData.CircleCheck(rightPos,0.1f,Vector2.zero,playerData.wall);
+
+            if(isPlayerInHardWall)
+                jumpCoroutine = jump.StartCoroutine(IEJump());
+            else if(isPlayerInSoftWall){
+                if(playerData.down)
+                    IEDownJump();
+                else
+                    jumpCoroutine = jump.StartCoroutine(IEJump());
+            }
+        }
+
+        public JumpHelper(PlayerData p,Jump j,JumpData jd){
+            playerData = p;
+            jump = j;
+            jumpData = jd;
+
+            scaleX = playerData.boxCollider2D.bounds.size.x / 2 - 0.1f;
+            scaleY = playerData.boxCollider2D.bounds.size.y / 2;
         }
     }
 }

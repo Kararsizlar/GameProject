@@ -6,7 +6,7 @@ namespace PlayerSpace
 {
     public class IsFlipped : MonoBehaviour
     {
-        [HideInInspector] public PlayerData playerData;
+        [SerializeField] PlayerData playerData;
 
         private void Update()
         {
