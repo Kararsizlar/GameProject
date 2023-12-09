@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Enemies;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -48,7 +47,7 @@ namespace PlayerSpace
                 Transform enemy = hit[i].transform.parent;
 
                 if(!listHit.Contains(enemy)){
-                    enemy.GetComponentInChildren<Enemy>().healthHandler.GetHurt(slash.damage);
+                    //enemy.GetComponentInChildren<Enemy>().healthHandler.GetHurt(slash.damage);
                     listHit.Add(enemy);
                 }
             }

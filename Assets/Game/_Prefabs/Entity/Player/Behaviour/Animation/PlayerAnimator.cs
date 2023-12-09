@@ -9,13 +9,13 @@ public class PlayerAnimator : MonoBehaviour
     [SerializeField] Animator animator;
     public void OnAttackStart()
     {
-        print($"Attack{playerData.currentCombo}");
+
         animator.Play($"Attack{playerData.currentCombo}");
     }
 
     public void OnAttackStop()
     {
-        print("OnAttackStop");
+
         if(playerData.onWalk)
             animator.Play("Walk");  
         else if(playerData.onAir)
@@ -26,13 +26,13 @@ public class PlayerAnimator : MonoBehaviour
 
     public void OnDashStart()
     {
-        print("Dash Start");
+
         animator.Play("Dash");
     }
 
     public void OnDashStop()
     {
-        print("Dash Stop");
+
         if(playerData.walk.walkData.interrupted)
             animator.Play("Walk");  
         else if(playerData.onAir)
@@ -44,13 +44,13 @@ public class PlayerAnimator : MonoBehaviour
 
     public void OnJumpStart()
     {
-        print("Jump");
+
         animator.Play("Jump");
     }
 
     public void OnJumpStop()
     {
-        print("Jump Stop");
+
         if(playerData.onAir)
             animator.Play("Fall");  
         else if(playerData.onWalk)
@@ -61,7 +61,6 @@ public class PlayerAnimator : MonoBehaviour
 
     public void OnWalkStart()
     {
-        print("Walk Start");
         if(playerData.onAir)
             return;
         if(playerData.dashing)
@@ -72,7 +71,7 @@ public class PlayerAnimator : MonoBehaviour
 
     public void OnWalkStop()
     {
-        print("Walk Stop");
+
         if(playerData.onAir)
             return;
         else if(playerData.dashing)
@@ -82,7 +81,7 @@ public class PlayerAnimator : MonoBehaviour
 
     public void OnWGrabStart()
     {
-        animator.Play("LedgeGrab");
+
     }
 
     public void OnWGrabStop()
@@ -102,7 +101,7 @@ public class PlayerAnimator : MonoBehaviour
             animator.Play("Idle");
     }
 
-    private void Start(){
+    private void OnEnable(){
         EventHub.walkStartedEvent += OnWalkStart;
         EventHub.walkStoppedEvent += OnWalkStop;
         EventHub.jumpStartedEvent += OnJumpStart;
@@ -114,5 +113,19 @@ public class PlayerAnimator : MonoBehaviour
         EventHub.attackStoppedEvent += OnAttackStart;
         EventHub.attackStoppedEvent += OnAttackStop;
         EventHub.onGroundedEvent += OnGrounded;
+    }
+
+        private void OnDisable(){
+        EventHub.walkStartedEvent -= OnWalkStart;
+        EventHub.walkStoppedEvent -= OnWalkStop;
+        EventHub.jumpStartedEvent -= OnJumpStart;
+        EventHub.jumpStoppedEvent -= OnJumpStop;
+        EventHub.dashStartedEvent -= OnDashStart;
+        EventHub.dashStoppedEvent -= OnDashStop;
+        EventHub.grabStartedEvent -= OnWGrabStart;
+        EventHub.grabStoppedEvent -= OnWGrabStop;
+        EventHub.attackStoppedEvent -= OnAttackStart;
+        EventHub.attackStoppedEvent -= OnAttackStop;
+        EventHub.onGroundedEvent -= OnGrounded;
     }
 }

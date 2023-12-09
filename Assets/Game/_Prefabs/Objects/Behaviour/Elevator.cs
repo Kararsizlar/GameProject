@@ -11,6 +11,8 @@ public class Elevator : MonoBehaviour
     [SerializeField] bool isDown;
     [SerializeField] bool currentlyActive;
 
+    private WaitForFixedUpdate elevatorWaiter = new();
+
     private IEnumerator UseElevator(){
         currentlyActive = true;
         Vector2 target;
@@ -27,9 +29,9 @@ public class Elevator : MonoBehaviour
         float t = 0;
         isDown = !isDown;
         while(!ElevatorPanel.position.Equals(target)){
-            t += Time.deltaTime;
+            t += Time.fixedDeltaTime;
             ElevatorPanel.MovePosition(Vector2.Lerp(start,target,elevatorCurve.Evaluate(t / timeToReachOtherSide)));
-            yield return Time.deltaTime;
+            yield return elevatorWaiter;
         }
         currentlyActive = false;
     }
