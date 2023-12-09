@@ -32,6 +32,7 @@ namespace PlayerSpace
         public LayerMask wall;
         public LayerMask softWall;
         public LayerMask hittable;
+        public LayerMask ledgeGrabbable;
         public int currentCombo;
         public float timeForComboEnd;
 

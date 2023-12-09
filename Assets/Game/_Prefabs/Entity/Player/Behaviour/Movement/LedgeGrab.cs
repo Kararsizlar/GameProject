@@ -31,9 +31,9 @@ namespace PlayerSpace
                 headPos  = playerData.playerBody2D.position + new Vector2(directionReal,realScale.y / 2);
                 spacePos = headPos + new Vector2(0,realScale.y);
 
-                bool bodyCheck = playerData.CircleCheck(bodyPos,0.1f,Vector2.zero,playerData.wall);
-                bool headCheck = playerData.CircleCheck(headPos,0.1f,Vector2.zero,playerData.wall);
-                bool spaceCheck = playerData.CircleCheck(spacePos,0.1f,Vector2.zero,playerData.wall);
+                bool bodyCheck = playerData.CircleCheck(bodyPos,0.1f,Vector2.zero,playerData.ledgeGrabbable);
+                bool headCheck = playerData.CircleCheck(headPos,0.1f,Vector2.zero,playerData.ledgeGrabbable);
+                bool spaceCheck = playerData.CircleCheck(spacePos,0.1f,Vector2.zero,playerData.ledgeGrabbable);
                 
                 if(bodyCheck && !headCheck && !spaceCheck){
                     StartLedgeGrab();
