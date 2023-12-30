@@ -39,12 +39,9 @@ namespace PlayerSpace{
 
         private IEnumerator IEJump(){
             float startY = playerData.playerBody2D.position.y;
-            Vector2 leftPos  = new(playerData.playerBody2D.position.x - scaleX,playerData.playerBody2D.position.y + scaleY);
-            Vector2 rightPos = new(playerData.playerBody2D.position.x + scaleX,playerData.playerBody2D.position.y + scaleY);
             playerData.onJump = true;
-            while (playerData.playerBody2D.position.y - startY < jumpData.maxDistance && !playerData.CircleCheck(rightPos,0.1f,Vector2.zero,playerData.wall) && !playerData.CircleCheck(leftPos,0.1f,Vector2.zero,playerData.wall)){
-                leftPos  = new(playerData.playerBody2D.position.x - scaleX,playerData.playerBody2D.position.y + scaleY);
-                rightPos = new(playerData.playerBody2D.position.x + scaleX,playerData.playerBody2D.position.y + scaleY);
+            playerData.onAir = true;
+            while (playerData.playerBody2D.position.y - startY < jumpData.maxDistance && playerData.onAir){
                 yield return Time.fixedDeltaTime;
                 playerData.playerBody2D.velocity = new(playerData.playerBody2D.velocity.x,jumpData.speed);
             }
@@ -67,12 +64,11 @@ namespace PlayerSpace{
         }
 
         public void StartJump(){
-            Vector2 leftPos  = new(playerData.playerBody2D.position.x - scaleX,playerData.playerBody2D.position.y - scaleY);
-            Vector2 rightPos = new(playerData.playerBody2D.position.x + scaleX,playerData.playerBody2D.position.y - scaleY);
             EventHub.jumpStartedEvent?.Invoke();
-            
-            bool isPlayerInSoftWall = playerData.CircleCheck(leftPos,0.1f,Vector2.zero,playerData.softWall) || playerData.CircleCheck(rightPos,0.1f,Vector2.zero,playerData.softWall);
-            bool isPlayerInHardWall = playerData.CircleCheck(leftPos,0.1f,Vector2.zero,playerData.wall) || playerData.CircleCheck(rightPos,0.1f,Vector2.zero,playerData.wall);
+            Vector2 p1 = new(playerData.boxCollider2D.bounds.min.x,playerData.boxCollider2D.bounds.min.y);
+            Vector2 p2 = new(playerData.boxCollider2D.bounds.max.x,playerData.boxCollider2D.bounds.min.y);
+            bool isPlayerInSoftWall = playerData.CircleCheck(p1,0.1f,Vector2.zero,playerData.softWall) || playerData.CircleCheck(p2,0.1f,Vector2.zero,playerData.softWall);
+            bool isPlayerInHardWall = playerData.CircleCheck(p1,0.1f,Vector2.zero,playerData.wall) || playerData.CircleCheck(p2,0.1f,Vector2.zero,playerData.wall);
 
             if(isPlayerInHardWall)
                 jumpCoroutine = jump.StartCoroutine(IEJump());

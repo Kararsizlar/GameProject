@@ -35,6 +35,7 @@ namespace PlayerSpace
         public LayerMask ledgeGrabbable;
         public int currentCombo;
         public float timeForComboEnd;
+        public float HP;
 
         public bool CircleCheck(Vector2 position,float radius,Vector2 direction, LayerMask mask){
             RaycastHit2D hit = Physics2D.CircleCast(position,radius,direction,0,mask);

@@ -10,6 +10,7 @@ public abstract class MeleeAttack : MonoBehaviour{
         public float waitBeforeAttack;
         public float waitAfterAttack;
         public GameObject enemyAttackPrefab;
+        public Animator animator;
     }
     public abstract void EvaluateNextState();
     public abstract void Attack();
