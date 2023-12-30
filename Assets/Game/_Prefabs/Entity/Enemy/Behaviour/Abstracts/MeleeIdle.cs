@@ -5,6 +5,7 @@ public abstract class MeleeIdle : MonoBehaviour{
     public class MeleeIdleStats{
         public MeleeBrain brain; 
         public Rigidbody2D body;
+        public Animator animator;
         public bool waiting;
         public float idleSpeed;
         public float maxDistanceToNextSpot;

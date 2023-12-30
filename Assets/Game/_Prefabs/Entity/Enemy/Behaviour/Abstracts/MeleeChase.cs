@@ -3,7 +3,8 @@ using UnityEngine;
 public abstract class MeleeChase : MonoBehaviour{
     [System.Serializable]
     public class MeleeChaseStats{
-        public MeleeBrain brain; 
+        public MeleeBrain brain;
+        public Animator animator;
         public Rigidbody2D body;
         public float chaseSpeed;
     }

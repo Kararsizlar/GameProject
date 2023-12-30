@@ -31,11 +31,11 @@ namespace PlayerSpace
             playerData.canDash = true;
             playerData.playerBody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
             playerData.currentCombo = playerData.currentCombo == (attackData.attacks.Length - 1) ? 0 : playerData.currentCombo + 1;
-            EventHub.attackStoppedEvent?.Invoke();
             attack.StartCoroutine(IEWaitCooldown(slash));
+            EventHub.attackStoppedEvent?.Invoke();
         }
 
-        private void Hit(Slash slash,List<Transform> listHit){
+        private void Hit(Slash slash,List<Transform> transforms){
             Vector2 pos = (Vector2)playerData.playerTransform.position + slash.offset * playerData.direction;
             RaycastHit2D[] hit = Physics2D.BoxCastAll(pos,slash.size,0,Vector2.zero,0,playerData.hittable);
 
@@ -44,21 +44,21 @@ namespace PlayerSpace
 
             for (int i = 0; i < hit.Length; i++)
             {
-                Transform enemy = hit[i].transform.parent;
+                Transform enemy = hit[i].transform;
 
-                if(!listHit.Contains(enemy)){
-                    //enemy.GetComponentInChildren<Enemy>().healthHandler.GetHurt(slash.damage);
-                    listHit.Add(enemy);
+                if(!transforms.Contains(enemy)){
+                    transforms.Add(enemy);
+                    enemy.GetComponent<IHealth>().GetHurt(slash.damage);
                 }
             }
         }
 
         private IEnumerator IEStartSlash(Slash slash){
             float waitedTime = 0;
-            List<Transform> enemiesHitWithThisSlash = new();
-            EventHub.attackStartedEvent?.Invoke();
+            List<Transform> transforms = new List<Transform>();
+
             while(waitedTime < slash.attackDuration){
-                Hit(slash,enemiesHitWithThisSlash);
+                Hit(slash, transforms);
                 waitedTime += Time.fixedDeltaTime;
                 yield return Time.fixedDeltaTime;
             }
@@ -82,6 +82,7 @@ namespace PlayerSpace
             playerData.onAttack = true;
             playerData.canDash = false;
             playerData.playerBody2D.constraints = RigidbodyConstraints2D.FreezeAll;
+            EventHub.attackStartedEvent?.Invoke();
             attack.StartCoroutine(IEStartSlash(attackData.attacks[playerData.currentCombo]));
 
             if(comboResetter != null){

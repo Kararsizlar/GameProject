@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using PlayerSpace;
 using UnityEngine;
 
@@ -9,13 +10,23 @@ public class PlayerAnimator : MonoBehaviour
     [SerializeField] Animator animator;
     public void OnAttackStart()
     {
-
-        animator.Play($"Attack{playerData.currentCombo}");
+        switch (playerData.currentCombo)
+        {
+            case 0:
+                animator.Play("Slash1");
+                break;
+            case 1:
+                animator.Play("Kick");
+                break;
+            case 2:
+                animator.Play("Slash2");
+                break;
+        }
     }
 
     public void OnAttackStop()
     {
-
+        print("hee");
         if(playerData.onWalk)
             animator.Play("Walk");  
         else if(playerData.onAir)
@@ -81,7 +92,7 @@ public class PlayerAnimator : MonoBehaviour
 
     public void OnWGrabStart()
     {
-
+        animator.Play("Ledge");
     }
 
     public void OnWGrabStop()
@@ -101,6 +112,10 @@ public class PlayerAnimator : MonoBehaviour
             animator.Play("Idle");
     }
 
+    private void Start(){
+        animator.Play("Idle");
+    }
+
     private void OnEnable(){
         EventHub.walkStartedEvent += OnWalkStart;
         EventHub.walkStoppedEvent += OnWalkStop;
@@ -110,7 +125,7 @@ public class PlayerAnimator : MonoBehaviour
         EventHub.dashStoppedEvent += OnDashStop;
         EventHub.grabStartedEvent += OnWGrabStart;
         EventHub.grabStoppedEvent += OnWGrabStop;
-        EventHub.attackStoppedEvent += OnAttackStart;
+        EventHub.attackStartedEvent += OnAttackStart;
         EventHub.attackStoppedEvent += OnAttackStop;
         EventHub.onGroundedEvent += OnGrounded;
     }
@@ -124,8 +139,8 @@ public class PlayerAnimator : MonoBehaviour
         EventHub.dashStoppedEvent -= OnDashStop;
         EventHub.grabStartedEvent -= OnWGrabStart;
         EventHub.grabStoppedEvent -= OnWGrabStop;
-        EventHub.attackStoppedEvent -= OnAttackStart;
         EventHub.attackStoppedEvent -= OnAttackStop;
+        EventHub.attackStartedEvent -= OnAttackStart;
         EventHub.onGroundedEvent -= OnGrounded;
     }
 }
