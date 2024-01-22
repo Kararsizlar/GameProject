@@ -12,12 +12,16 @@ public class SceneChanger : MonoBehaviour
 
     private void Open()
     {
-        conirmation.enabled = true;
+        if (conirmation != null)
+            conirmation.enabled = true;
+        
         canUse = true;
     }
     private void Close()
     {
-        conirmation.enabled = false;
+        if(conirmation != null)
+            conirmation.enabled = false;
+        
         canUse = false;
     }
 

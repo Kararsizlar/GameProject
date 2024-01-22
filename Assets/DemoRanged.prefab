@@ -161,7 +161,7 @@ MonoBehaviour:
   animator: {fileID: 2037750134302363947}
   spriteRenderer: {fileID: 2886039860521554976}
   distanceToTarget: 10
-  hp: 5
+  hp: 3
   direction: 1
   target: {fileID: 0}
   movementLocked: 0

@@ -6,9 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Game/Region1/Maps/Intro.unity
+    guid: cc395bdce5a4ac246a94e5de3da580e8
+  - enabled: 1
     path: Assets/Game/Region1/Maps/Outside.unity
     guid: b697a92f3dfa54fe4aee8889d193a651
   - enabled: 1
     path: Assets/Game/Region1/Maps/Inside.unity
     guid: 2d23cd3304bddc546bbeeb16114f7500
+  - enabled: 1
+    path: Assets/Game/Region1/Maps/Outro.unity
+    guid: 6a6cc9ab74ef0ef43b93c412cfd75900
   m_configObjects: {}

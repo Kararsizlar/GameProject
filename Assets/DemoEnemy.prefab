@@ -226,7 +226,7 @@ MonoBehaviour:
   attentionRange: {x: 15, y: 5}
   animator: {fileID: 2688227799551743998}
   spriteRenderer: {fileID: 4367624139581837622}
-  hp: 20
+  hp: 6
   direction: 1
   distanceToTarget: 0
   target: {fileID: 0}
@@ -304,7 +304,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 100
   m_Sprite: {fileID: 2006856989, guid: 3aefaa592b2d181419c8f6c0cc00bfd0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
